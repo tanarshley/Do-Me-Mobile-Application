@@ -1,0 +1,28 @@
+<ion-app>
+  <ion-router-outlet></ion-router-outlet>
+
+  <!-- hide the tab bar on the login page -->
+  <ion-tabs id="tabs">
+    <ion-tab-bar slot="bottom" *ngIf="!(router.url === '/login' || router.url === '/register')">
+      <ion-tab-button tab="home">
+        <ion-icon name="list-outline"></ion-icon>
+        <ion-label>Do's</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="recents">
+        <ion-icon name="time-outline"></ion-icon>
+        <ion-label>Recent</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="alerts">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <ion-label>Alerts</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="profile">
+        <ion-icon name="person-outline"></ion-icon>
+        <ion-label>Profile</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-app>

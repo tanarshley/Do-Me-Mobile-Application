@@ -1,0 +1,132 @@
+<ion-content>
+  <ion-refresher slot="fixed" id="refresher" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+    <!-- circle designs-->
+    <div id="circle-1"></div>
+    <div id="circle-2"></div>
+
+  <div id="heading-back-button">
+    <ion-button fill="clear" (click)="dismissEditInformationModal()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Back
+    </ion-button>
+  </div>
+  <div id="page-title">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10">
+          <h1>Edit Account Information</h1>
+        </ion-col>
+        <ion-col size="2" style="position: absolute; top: 36px; right: 0;">
+          <ion-icon name="person" style="font-size: 3rem;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-label>
+    </ion-label>
+  </div>
+
+  <div id="section-buttons">
+    <ion-segment [(ngModel)]='selectTabs'>
+      <ion-segment-button value="profile">
+        <ion-label>Profile Information</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="password">
+        <ion-label>Password</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <div id="segment-button-profile" *ngIf="selectTabs === 'profile'">
+      <ion-card mode="ios">
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="stacked">Full Name</ion-label>
+            <ion-input type="text" [(ngModel)]="fullname"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Email Address</ion-label>
+            <ion-input type="email" [(ngModel)]="email"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Birthdate</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="birthdate"></ion-datetime>
+          </ion-item>
+
+          <div id="form-buttons">
+            <ion-button expand="block" mode="ios" (click)="saveInfo(userId, fullname, email, birthdate)">Save</ion-button><br>
+          </div>
+
+          <ion-label>
+            Note: Logout and login again to see the changes.
+          </ion-label>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- return to profile -->
+      <ion-button expand="block" mode="ios" (click)="dismissEditInformationModal()" color="light" style="margin: 22px;">Return to Profile</ion-button>
+    </div>
+
+    <div id="segment-button-password" *ngIf="selectTabs === 'password'">
+      <ion-card mode="ios">
+        <ion-card-content>
+          <form [formGroup]="changepassword" ngNativeValidate (submit)="changePassword(userId, password)">
+            <ion-list>
+              <ion-item>
+                <ion-label position="floating">Old Password</ion-label>
+                <ion-input type="password" formControlName="old_password" id="old-password"></ion-input>
+                <ion-icon name="eye-off" slot="end" id="old-icon-eye" style="position: relative; right: -14px; top: 26px; color:rgb(217, 217, 217);" (click)="showOldPassword()"></ion-icon>
+              </ion-item>
+
+              <div *ngFor="let error of errorMessages.old_password" style="text-align: left; color: red;">
+                <ng-container *ngIf="changepassword.controls['old_password'].errors?.required && changepassword.controls['old_password'].
+                touched">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+
+              <ion-item>
+                <ion-label position="floating">New Password</ion-label>
+                <ion-input type="password" formControlName="new_password" id="new-password"></ion-input>
+                <ion-icon name="eye-off" slot="end" id="new-icon-eye" style="position: relative; right: -14px; top: 26px; color:rgb(217, 217, 217);" (click)="showNewPassword()"></ion-icon>
+              </ion-item>
+
+              <div *ngFor="let error of errorMessages.new_password" style="text-align: left; color: red;">
+                <ng-container *ngIf="changepassword.controls['new_password'].errors?.required && changepassword.controls['new_password'].
+                touched">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+
+              <ion-item>
+                <ion-label position="floating">Confirm New Password</ion-label>
+                <ion-input type="password" formControlName="confirm_password" id="confirm-password"></ion-input>
+                <ion-icon name="eye-off" slot="end" id="confirm-icon-eye" style="position: relative; right: -14px; top: 26px; color:rgb(217, 217, 217);" (click)="showConfirmPassword()"></ion-icon>
+              </ion-item>
+
+              <div *ngFor="let error of errorMessages.confirm_password" style="text-align: left; color: red;">
+                <ng-container *ngIf="changepassword.controls['confirm_password'].errors?.required && changepassword.controls['confirm_password'].
+                touched">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+
+            </ion-list>
+
+            <div id="form-buttons">
+              <ion-button type="submit"s expand="block" mode="ios">Save</ion-button><br>
+            </div>
+        </form>
+
+        <ion-label>
+          Note: Changing your password will automatically log you out of your account.
+        </ion-label>
+      </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+</ion-content>

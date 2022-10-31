@@ -1,0 +1,49 @@
+#page-title{
+  position: absolute;
+  top: 11%;
+  margin: 24px;
+  h1{
+    font-size: 28px;
+    font-weight: 600;
+  }
+  #currentTime{
+   margin: 0;
+   padding: 0;
+  }
+}
+
+#fab-button{
+  position: relative;
+  top: 15%;
+  margin: 24px;
+}
+
+#priority-buttons{
+  position: relative;
+  top: 30%;
+  text-align: center;
+  margin-top: 12px;
+}
+
+#circle-1{
+  position: absolute;
+  background-color: rgba(120, 174, 255, 0.497);
+  width: 115px;
+  height: 115px;
+  top: -60px;
+  margin: 24px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+#circle-2{
+  position: absolute;
+  background-color: rgba(120, 174, 255, 0.497);
+  width: 115px;
+  height: 115px;
+  top: -34px;
+  left: -70px;
+  margin: 24px;
+  text-align: center;
+  border-radius: 50%;
+}

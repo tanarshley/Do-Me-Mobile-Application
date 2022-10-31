@@ -1,0 +1,59 @@
+<ion-content>
+
+    <!-- circle designs-->
+    <div id="circle-1"></div>
+    <div id="circle-2"></div>
+
+  <div id="page-title">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10">
+          <h1>Create New Do</h1>
+        </ion-col>
+        <ion-col size="2" style="position: absolute; top: 16px; right: 0;">
+          <ion-icon name="pencil-outline" style="font-size: 2.2rem;"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-label>
+    </ion-label>
+  </div>
+
+
+  <div id="create-do-form">
+      <ion-item>
+        <ion-label position="floating">Title</ion-label>
+        <ion-input type="text" [(ngModel)]="todo_title"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-input type="text" [(ngModel)]="todo_description"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Date</ion-label>
+        <ion-datetime displayFormat="MMM DD, YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="todo_date"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Time</ion-label>
+        <ion-datetime displayFormat="h:mm A" pickerFormat="h:mm A" [(ngModel)]="todo_time"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Priority Level</ion-label>
+        <ion-select [(ngModel)]="priority">
+          <ion-select-option value="Low">Low</ion-select-option>
+          <ion-select-option value="Medium">Medium</ion-select-option>
+          <ion-select-option value="High">High</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <div id="form-buttons">
+        <ion-button (click)="createDo()" expand="block" mode="ios">Create Do</ion-button><br>
+        <a id="cancel-button" (click)="dismissModal()">Cancel</a>
+      </div>
+
+  </div>
+</ion-content>

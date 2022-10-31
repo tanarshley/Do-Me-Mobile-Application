@@ -1,0 +1,41 @@
+<ion-content>
+    <!-- circle designs-->
+    <div id="circle-1"></div>
+    <div id="circle-2"></div>
+
+  <div id="page-title">
+    <h1>Recent Do's</h1>
+  </div>
+
+  <div id="content">
+    <ion-list>
+      <ion-item button *ngFor="let recent of recents; index as i" (click)="viewRecent(recent, i)">
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col style="font-size: 26px;">
+                <ion-icon name="checkmark-circle-outline" color="success"></ion-icon>
+              </ion-col>
+              <ion-col>
+                <h2 style="position: absolute; left: -46px; font-weight: 600; font-size: 16px;">{{recent.todo_title}}</h2>
+              </ion-col>
+              <ion-col>
+                <ion-chip color="primary" style="position: relative; bottom: 6px; font-size: 16px; float: right; font-weight: 600;">
+                  <ion-label style="margin-right: 10px;">{{recent.todo_dateCompleted}}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-grid>
+            <ion-row>
+              <ion-col style="float: left; margin-bottom: -112px;">
+                <h3 style="margin-left: 36px; margin-top: -26px; font-size: 14px;">{{recent.todo_description}}</h3>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

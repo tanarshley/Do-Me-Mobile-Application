@@ -1,0 +1,85 @@
+<ion-content>
+    <ion-card id="create-account-card">
+      <ion-card-header>
+        <ion-card-title>Create Account</ion-card-title>
+        <img src="assets/logo/Do Me Logo.png" alt="Do Me Logo Full" id="logo">
+      </ion-card-header>
+      <ion-card-content>
+
+        <form [formGroup]="registerForm" ngNativeValidate (submit)="onSubmitForm($event)">
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Full Name</ion-label>
+              <ion-input type="text" formControlName="fullname"></ion-input>
+            </ion-item>
+
+            <div *ngFor="let error of errorMessages.fullname" style="text-align: left; color: red;">
+              <ng-container *ngIf="registerForm.controls['fullname'].errors?.required && registerForm.controls['fullname'].
+              touched">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+
+            <ion-item>
+              <ion-label position="floating">Email Address</ion-label>
+              <ion-input type="email" formControlName="email"></ion-input>
+            </ion-item>
+
+            <div *ngFor="let error of errorMessages.email" style="text-align: left; color: red;">
+              <ng-container *ngIf="registerForm.controls['email'].errors?.required && registerForm.controls['email'].
+              touched">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+
+            <ion-item>
+              <ion-label position="floating">Birthdate</ion-label>
+              <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" formControlName="birthdate"></ion-datetime>
+            </ion-item>
+
+            <div *ngFor="let error of errorMessages.birthdate" style="text-align: left; color: red;">
+              <ng-container *ngIf="registerForm.controls['birthdate'].errors?.required && registerForm.controls['birthdate'].
+              touched">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input type="password" id ="password" formControlName="password">
+              </ion-input>
+              <ion-icon name="eye-off" slot="end" id="icon-eye" style="position: absolute; right: 0; top: 14px; color:rgb(217, 217, 217);" (click)="showPassword()"></ion-icon>
+            </ion-item>
+
+            <div *ngFor="let error of errorMessages.password" style="text-align: left; color: red;">
+              <ng-container *ngIf="registerForm.controls['password'].errors?.required && registerForm.controls['password'].
+              touched">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+
+            <ion-item>
+              <ion-label position="floating">Confirm Password</ion-label>
+              <ion-input type="password" id ="confirm-password" formControlName="confirmPassword">
+              </ion-input>
+              <ion-icon name="eye-off" slot="end" id="confirm-icon-eye" style="position: absolute; right: 0; top: 14px; color:rgb(217, 217, 217);" (click)="showConfirmPassword()"></ion-icon>
+            </ion-item>
+
+            <div *ngFor="let error of errorMessages.confirmPassword" style="text-align: left; color: red;">
+              <ng-container *ngIf="registerForm.controls['confirmPassword'].errors?.required && registerForm.controls['confirmPassword'].
+              touched">
+                <small class="error-message">{{error.message}}</small>
+              </ng-container>
+            </div>
+
+          </ion-list>
+
+          <ion-button expand="block" mode="ios" id="register-button" type="submit" [disabled]="!registerForm.valid">Register</ion-button>
+        </form>
+
+        <p id="login-link">Already have an account? <a href="/login">Login</a></p>
+
+      </ion-card-content>
+    </ion-card>
+
+</ion-content>

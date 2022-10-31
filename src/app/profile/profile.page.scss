@@ -1,0 +1,45 @@
+#page-title{
+  position: absolute;
+  top: 12%;
+  margin: 24px;
+  h1{
+    font-size: 28px;
+    font-weight: 600;
+  }
+}
+
+#profile-content{
+  position: relative;
+  top: 24%;
+
+  #circle-avatar{
+    width: 100px;
+    height: 100px;
+    margin: 4px;
+    border-radius: 50%;
+    background-color: gray;
+  }
+}
+
+#circle-1{
+  position: absolute;
+  background-color: rgba(120, 174, 255, 0.497);
+  width: 115px;
+  height: 115px;
+  top: -60px;
+  margin: 24px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+#circle-2{
+  position: absolute;
+  background-color: rgba(120, 174, 255, 0.497);
+  width: 115px;
+  height: 115px;
+  top: -34px;
+  left: -70px;
+  margin: 24px;
+  text-align: center;
+  border-radius: 50%;
+}

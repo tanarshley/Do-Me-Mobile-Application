@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "DoMeMobileApp",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

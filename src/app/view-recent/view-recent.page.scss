@@ -1,0 +1,57 @@
+#page-title{
+  position: relative;
+  top: 11%;
+  margin: 24px;
+  h1{
+    font-size: 28px;
+    font-weight: 600;
+  }
+}
+
+#view-do-form{
+  position: relative;
+  top: 15%;
+  margin: 24px;
+  ion-item{
+    margin: 0;
+    padding: 4px;
+  }
+  ion-label{
+    margin-left: 6px;
+    padding: 0;
+  }
+  ion-input{
+    margin: 0;
+    padding: 0;
+  }
+
+  #form-buttons{
+    text-align: center;
+    padding: 4px;
+    margin-top: 12px;
+  }
+}
+
+#circle-1{
+  position: absolute;
+  background-color: rgba(120, 174, 255, 0.497);
+  width: 115px;
+  height: 115px;
+  top: -60px;
+  margin: 24px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+#circle-2{
+  position: absolute;
+  background-color: rgba(120, 174, 255, 0.497);
+  width: 115px;
+  height: 115px;
+  top: -34px;
+  left: -70px;
+  margin: 24px;
+  text-align: center;
+  border-radius: 50%;
+}
+

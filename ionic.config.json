@@ -1,0 +1,7 @@
+{
+  "name": "DoMeMobileApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

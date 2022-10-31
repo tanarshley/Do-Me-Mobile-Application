@@ -1,0 +1,310 @@
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" id="refresher" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- circle designs-->
+  <div id="circle-1"></div>
+  <div id="circle-2"></div>
+
+
+
+  <!-- create do fab button-->
+  <div id="fab-button">
+    <ion-fab horizontal="end" vertical="start" slot="fixed">
+      <ion-fab-button (click)="presentCreateDoModal()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+
+  <div id="page-title">
+    <h1>Your Do's</h1>
+    <ion-label>
+      <ion-datetime id="currentTime" [value]="dateTime" displayFormat="MMM DD, YYYY" readonly></ion-datetime>
+    </ion-label>
+  </div>
+
+  <div id="priority-buttons">
+    <ion-segment [(ngModel)]='selectTabs'>
+      <ion-segment-button value="all-dos">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="low-priority">
+        <ion-label>Low</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="medium-priority">
+        <ion-label>Medium</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="high-priority">
+        <ion-label>High</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div id="todo-items" style="position: relative; top: 30%; padding-bottom: 70px;">
+
+    <div class="segment-content" *ngIf="selectTabs === 'all-dos'">
+      <ion-card *ngFor="let todo of todos; index as i" mode="ios">
+        <ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-card-title style="font-size: 22px;">{{todo.todo_title}}</ion-card-title>
+              </ion-col>
+              <ion-col *ngIf="todo.priority === 'Low'">
+                <ion-chip color="primary" style="position: relative; bottom: 6px; font-size: 16px; float: right; font-weight: 600;">
+                  <ion-label>{{todo.priority}}</ion-label>
+                </ion-chip>
+              </ion-col>
+
+              <ion-col *ngIf="todo.priority === 'Medium'">
+                <ion-chip color="warning" style="position: relative; bottom: 6px; font-size: 16px; float: right; font-weight: 600;">
+                  <ion-label>{{todo.priority}}</ion-label>
+                </ion-chip>
+              </ion-col>
+
+              <ion-col *ngIf="todo.priority === 'High'">
+                <ion-chip color="danger" style="position: relative; bottom: 6px; font-size: 16px;  float: right; font-weight: 600;">
+                  <ion-label>{{todo.priority}}</ion-label>
+                </ion-chip>
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-grid style="margin-top: -24px;">
+            <ion-row>
+              <ion-col style="margin-top: -10px;">
+                <ion-label id="description" style="font-size: 18px;">
+                  {{todo.todo_description}}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-icon name="calendar-clear-outline" style="font-size: 24px; position: relative; top: 4px;"></ion-icon>
+                <ion-datetime [value]="todo.todo_date" displayFormat="MMM DD, YYYY" style="position: relative; bottom: 32px; left: 8px;" readonly></ion-datetime>
+              </ion-col>
+              <ion-col>
+                <ion-icon name="alarm-outline" style="font-size: 24px; position: relative; top: 4px; left: 28px;"></ion-icon>
+                <ion-datetime id="time" [value]="todo.todo_time" displayFormat="h:mm A" style="position: relative; float: right; font-size: 16px; bottom: 3px;" readonly></ion-datetime>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </ion-card-content>
+        <ion-grid style="margin-top: -55px;">
+          <ion-row>
+            <ion-col>
+              <ion-button color="light" expand="block" (click)="deleteActionSheet(todo.todo_id, i)">Delete</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="light" expand="block" (click)="editDo(todo,i)">Edit</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="primary" fill="outline" expand="block" (click)="completeDo(todo.todo_id, i)">
+                <ion-icon name="checkmark-outline"></ion-icon>
+                Complete
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </div>
+
+    <!-- segment for Low prio -->
+    <div class="segment-content" *ngIf="selectTabs === 'low-priority'">
+      <ion-card *ngFor="let lowTodo of lowTodos; index as i" mode="ios">
+        <ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-card-title style="font-size: 22px;">{{lowTodo.todo_title}}</ion-card-title>
+              </ion-col>
+              <ion-col *ngIf="lowTodo.priority === 'Low'">
+                <ion-chip color="primary" style="position: relative; bottom: 6px; font-size: 16px; float: right; font-weight: 600;">
+                  <ion-label>{{lowTodo.priority}}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-grid style="margin-top: -24px;">
+            <ion-row>
+              <ion-col style="margin-top: -10px;">
+                <ion-label id="description" style="font-size: 18px;">
+                  {{lowTodo.todo_description}}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-icon name="calendar-clear-outline" style="font-size: 24px; position: relative; top: 4px;"></ion-icon>
+                <ion-datetime [value]="lowTodo.todo_date" displayFormat="MMM DD, YYYY" style="position: relative; bottom: 32px; left: 8px;" readonly></ion-datetime>
+              </ion-col>
+              <ion-col>
+                <ion-icon name="alarm-outline" style="font-size: 24px; position: relative; top: 4px; left: 28px;"></ion-icon>
+                <ion-datetime id="time" [value]="lowTodo.todo_time" displayFormat="h:mm A" style="position: relative; float: right; font-size: 16px; bottom: 3px;" readonly></ion-datetime>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </ion-card-content>
+        <ion-grid style="margin-top: -55px;">
+          <ion-row>
+            <ion-col>
+              <ion-button color="light" expand="block" (click)="deleteActionSheet(lowTodo.todo_id, i)">Delete</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="light" expand="block" (click)="editDo(lowTodo,i)">Edit</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="primary" fill="outline" expand="block">
+                <ion-icon name="checkmark-outline"></ion-icon>
+                Complete
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </div>
+
+     <!-- segment for mid prio -->
+     <div class="segment-content" *ngIf="selectTabs === 'medium-priority'">
+      <ion-card *ngFor="let mediumTodo of mediumTodos; index as i" mode="ios">
+        <ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-card-title style="font-size: 22px;">{{mediumTodo.todo_title}}</ion-card-title>
+              </ion-col>
+              <ion-col *ngIf="mediumTodo.priority === 'Medium'">
+                <ion-chip color="warning" style="position: relative; bottom: 6px; font-size: 16px; float: right; font-weight: 600;">
+                  <ion-label>{{mediumTodo.priority}}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-grid style="margin-top: -24px;">
+            <ion-row>
+              <ion-col style="margin-top: -10px;">
+                <ion-label id="description" style="font-size: 18px;">
+                  {{mediumTodo.todo_description}}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-icon name="calendar-clear-outline" style="font-size: 24px; position: relative; top: 4px;"></ion-icon>
+                <ion-datetime [value]="mediumTodo.todo_date" displayFormat="MMM DD, YYYY" style="position: relative; bottom: 32px; left: 8px;" readonly></ion-datetime>
+              </ion-col>
+              <ion-col>
+                <ion-icon name="alarm-outline" style="font-size: 24px; position: relative; top: 4px; left: 28px;"></ion-icon>
+                <ion-datetime id="time" [value]="mediumTodo.todo_time" displayFormat="h:mm A" style="position: relative; float: right; font-size: 16px; bottom: 3px;" readonly></ion-datetime>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </ion-card-content>
+        <ion-grid style="margin-top: -55px;">
+          <ion-row>
+            <ion-col>
+              <ion-button color="light" expand="block" (click)="deleteActionSheet(mediumTodo.todo_id, i)">Delete</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="light" expand="block" (click)="editDo(mediumTodo,i)">Edit</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="primary" fill="outline" expand="block">
+                <ion-icon name="checkmark-outline"></ion-icon>
+                Complete
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </div>
+
+
+    <!-- segment for high prio -->
+    <div class="segment-content" *ngIf="selectTabs === 'high-priority'">
+      <ion-card *ngFor="let highTodo of highTodos; index as i" mode="ios">
+        <ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-card-title style="font-size: 22px;">{{highTodo.todo_title}}</ion-card-title>
+              </ion-col>
+              <ion-col *ngIf="highTodo.priority === 'High'">
+                <ion-chip color="danger" style="position: relative; bottom: 6px; font-size: 16px;  float: right; font-weight: 600;">
+                  <ion-label>{{highTodo.priority}}</ion-label>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-grid style="margin-top: -24px;">
+            <ion-row>
+              <ion-col style="margin-top: -10px;">
+                <ion-label id="description" style="font-size: 18px;">
+                  {{highTodo.todo_description}}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-icon name="calendar-clear-outline" style="font-size: 24px; position: relative; top: 4px;"></ion-icon>
+                <ion-datetime [value]="highTodo.todo_date" displayFormat="MMM DD, YYYY" style="position: relative; bottom: 32px; left: 8px;" readonly></ion-datetime>
+              </ion-col>
+              <ion-col>
+                <ion-icon name="alarm-outline" style="font-size: 24px; position: relative; top: 4px; left: 28px;"></ion-icon>
+                <ion-datetime id="time" [value]="highTodo.todo_time" displayFormat="h:mm A" style="position: relative; float: right; font-size: 16px; bottom: 3px;" readonly></ion-datetime>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </ion-card-content>
+        <ion-grid style="margin-top: -55px;">
+          <ion-row>
+            <ion-col>
+              <ion-button color="light" expand="block" (click)="deleteActionSheet(highTodo.todo_id, i)">Delete</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="light" expand="block" (click)="editDo(highTodo,i)">Edit</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="primary" fill="outline" expand="block">
+                <ion-icon name="checkmark-outline"></ion-icon>
+                Complete
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </div>
+
+  </div>
+
+</ion-content>
